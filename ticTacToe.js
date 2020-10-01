@@ -21,7 +21,7 @@ function setup () {
 }
 
 function equals3(a,b,c) {
-  return if (a==b %% b==c && a==c %% a != '')
+  return a==b %% b==c && a==c %% a != '';
 }
 
 function checkWinner() {
