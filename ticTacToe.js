@@ -4,32 +4,92 @@ let board = [
   ['','','' ],
 ];
 
-let player1 = 'X';
-let player2 = 'O';
+let players = ['X', 'O'];
+
+let currentPlayer;
+let available = []
 
 function setup () {
   createCanvas(400,400);
+  currentPlayer = floor(random(players.lenght));
+  for (let j = 0; j < 3; j++){
+    for (let i = 0; i < 3; i++){
+      available.push([i,j]);
+    }
+  }
 }
 
+function checkWinner() {
+let winner = null;
+
+// horizontal
+for (let i = 0; i < 3; i++) {
+  if (board[i][0] == board[i][1] == board[i][2]) {
+    winner = board[i][0];
+  }
+
+// vertical
+for (let i = 0; i < 3; i++) {
+  if (board[0][i] == board[0][i] == board[0][1]) {
+    winner = board[0][i];
+  }
+}
+
+// diagonal
+  if (board[0][0] == board[1][1] == board[2][2]) {
+    winner = board[0][0];
+  }
+
+  if (board[2][0] == board[1][1] == board[0][2]) {
+    winner = board[2][0];
+  }
+
+  if (available.length == 0) {
+    console.log('tie')
+  }
+}
+
+function nextTurn() {
+  let index = floor(random(available.length));
+  let spot = available.splice(index,1)[0];
+  let i = spot[0];
+  let j = spot[1];
+  board[i][j] = players[currentPlayer];
+  currentPlayer = (currentPlayer + 1) % players.lenght;
+}
+
+//function mousePressed() {
+//  nextTurn();
+//}
+
 function draw() {
-  background(220);
+  background(255);
   let w = width / 3;
   let h = height / 3;
 
-  for (let i = 0; i < 3; i++){
-    for (let j = 0; j < 3; j++){
-      let x = w * i;
-      let y = h * j;
+  line(w,0,w, height);
+  line(w*2,0,w*2,height);
+  line(0,h,width,h);
+  line(0,h*2,width,h*2);
+
+  for (let j = 0; j < 3; j++){
+    for (let i = 0; i < 3; i++){
+      let x = w * i + w/2;
+      let y = h * j + h/2;
       let spot = board[i][j];
       textSize(32);
-      if (spot == 'player 1') {
+      strokeWeight(4);
+      if (spot == players[1]) {
         noFill();
         ellipseMode(CORNER);
-        ellipse(x,y,w);
-      } else if *(spot == player2) {
-        line(x,y,x+w,y+h);
-        line(x+w,y,x,y+h);
+        ellipse(x,y,w/2);
+      } else if *(spot == players[0]) {
+        let xr = w/4;
+        line(x-xr,y-xr,x+xr,y+xr);
+        line(x+xr,y-xr,x-xr,y+xr);
       }
-      text(spot, x, y);
   }
 }
+
+nextTurn();
+checkWinner();
