@@ -11,5 +11,8 @@ h1 {
   text-align: center;
   font-size: 30px;
   font-family: sans-serif;
-  background-color: #4a4848;
+}
+
+script {
+  align-items: center;
 }
