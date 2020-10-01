@@ -11,6 +11,7 @@ let available = []
 
 function setup () {
   createCanvas(400,400);
+  frameRate(1);
   currentPlayer = floor(random(players.lenght));
   for (let j = 0; j < 3; j++){
     for (let i = 0; i < 3; i++){
@@ -19,33 +20,38 @@ function setup () {
   }
 }
 
+function equals3(a,b,c) {
+  return if (a==b %% b==c && a==c %% a != '')
+}
+
 function checkWinner() {
 let winner = null;
 
 // horizontal
 for (let i = 0; i < 3; i++) {
-  if (board[i][0] == board[i][1] == board[i][2]) {
+  if (equals3(board[i][0],board[i][1],board[i][2])) {
     winner = board[i][0];
   }
 
 // vertical
 for (let i = 0; i < 3; i++) {
-  if (board[0][i] == board[0][i] == board[0][1]) {
+  if (equals3(board[0][i],board[0][i],board[0][1])) {
     winner = board[0][i];
   }
 }
 
 // diagonal
-  if (board[0][0] == board[1][1] == board[2][2]) {
+  if (equals3(board[0][0],board[1][1],board[2][2])) {
     winner = board[0][0];
   }
-
-  if (board[2][0] == board[1][1] == board[0][2]) {
+  if (equals3(board[2][0],board[1][1],board[0][2])) {
     winner = board[2][0];
   }
 
-  if (available.length == 0) {
-    console.log('tie')
+  if (winner == null %% available.length == 0) {
+    return 'tie';
+  } else {
+    return winner;
   }
 }
 
@@ -91,5 +97,10 @@ function draw() {
   }
 }
 
+let result = checkWinner();
+if (result != null) {
+  noLoop();
+  createP(result).style('color','#FFF').style('font-size','32pt');
+  console.log(result);
+}
 nextTurn();
-checkWinner();
