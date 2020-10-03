@@ -12,3 +12,18 @@ h1 {
   font-size: 30px;
   font-family: sans-serif;
 }
+
+/* here are the styles for the button I added */
+/* just going to add some basic styles */
+
+.restart__button {
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    margin: 5px;
+}
+
+.restart__button:hover {
+    transform: scaleX(1.3)
+}
