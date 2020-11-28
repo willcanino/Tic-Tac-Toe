@@ -65,9 +65,9 @@ function nextTurn() {
   currentPlayer = (currentPlayer + 1) % players.length;
 }
 
-// function mousePressed() {
-//   nextTurn();
-// }
+function mousePressed() {
+  nextTurn();
+ }
 
 function draw() {
   background(255);
@@ -101,6 +101,10 @@ function draw() {
   if (result != null) {
     noLoop();
     let resultP = createP('');
+    const button = document.createElement("BUTTON");
+    button.innerText = 'Restart Game'
+    document.body.appendChild(button);
+    button.addEventListener('click', () => console.log('clicked'))
     resultP.style('font-size', '32pt');
     if (result == 'tie') {
       resultP.html('Tie!');
